@@ -1,0 +1,30 @@
+@import "./theme/light.css";
+@import "tailwindcss";
+
+html body {
+  overscroll-behavior: none;
+}
+
+body {
+  font-family:
+          PingFang SC,
+          Arial,
+          Helvetica,
+          sans-serif;
+  overscroll-behavior: none;
+}
+
+// 隐藏滚动条
+::-webkit-scrollbar {
+  display: none;
+}
+
+img, svg {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
