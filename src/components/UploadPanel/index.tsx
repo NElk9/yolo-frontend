@@ -60,7 +60,7 @@ export default function UploadPanel() {
               {EXAMPLE_IMAGES.map((image, index) => (
                 <div
                   key={index}
-                  className={'w-full aspect-square rounded-2xl overflow-hidden'}
+                  className={'w-full aspect-square rounded-2xl overflow-hidden cursor-pointer'}
                   onClick={() => handleClickExample(image)}
                 >
                   <img
