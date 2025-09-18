@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: 'bg-[#189fff] text-[#fff] shadow hover:bg-[#47afff] active:bg-[#1074cc]',
       },
       size: {
-        default: 'h-8 px-4 py-2',
+        default: 'h-9 px-5 py-2',
       },
     },
     defaultVariants: {
