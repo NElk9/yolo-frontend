@@ -66,13 +66,13 @@ export default function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 h-[80px] z-10',
+        'fixed top-0 left-0 right-0 h-[60px] z-10',
         isScroll && 'bg-[#f5f8ff]/70 backdrop-blur-lg',
       )}
     >
       <div className={'w-full h-full flex items-center px-20 gap-[200px]'}>
         <Link href="/" className={'flex-shrink-0'}>
-          <img src="/logo.png" width={120} alt="Logo" />
+          <img src="/logo.png" width={100} alt="Logo" />
         </Link>
         <div className={'flex items-center justify-between min-w-[450px]'}>
           {menuData.map((menu, index) => {
@@ -81,7 +81,7 @@ export default function Header() {
               <Link
                 href={menu.href}
                 key={index}
-                className={cn('text-xl text-[#666666]', isActive && 'text-[#855AFF] font-semibold')}
+                className={cn('text-[#666666]', isActive && 'text-[#855AFF] font-semibold')}
               >
                 {menu.name}
               </Link>
