@@ -34,7 +34,7 @@ export default function UploadPanel() {
   // 点击 开始预测 按钮：统一example和file格式 发送请求
   const handleClickPredict = () => {}
   return (
-    <Card className={'w-[600px] h-[460px] bg-white'}>
+    <Card className={'w-full h-full bg-white'}>
       <CardContent className={'h-full flex justify-between items-center gap-6'}>
         <div className={'w-4/5 self-stretch flex flex-col justify-between gap-5'}>
           <div
