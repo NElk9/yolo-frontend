@@ -4,7 +4,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className={'overflow-x-hidden mt-[80px] bg-blue-300'}>{children}</main>
+      <main className={'overflow-x-hidden'}>{children}</main>
     </>
   )
 }
