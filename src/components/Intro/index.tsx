@@ -41,14 +41,14 @@ function IntroCard({ cardData }: { cardData: CardData }) {
   return (
     <div
       className={
-        'w-[460px] h-[500px] bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/40 p-8 rounded-3xl flex flex-col justify-center items-center'
+        'w-[460px] h-[500px] bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/40 p-8 rounded-3xl flex flex-col justify-center items-center gap-5'
       }
     >
       <div className={'bg-white overflow-hidden rounded-3xl'}>
         <img src={cardData.imgPath} width={240} />
       </div>
-      <p>{cardData.title}</p>
-      <p className={'text-center'}>{cardData.description}</p>
+      <p className={'text-center text-[#333333] font-semibold text-4xl pt-4'}>{cardData.title}</p>
+      <p className={'text-center text-[#333333] text-2xl'}>{cardData.description}</p>
     </div>
   )
 }
