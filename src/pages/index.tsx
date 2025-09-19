@@ -8,6 +8,15 @@ export default function Home() {
       <Link href="/demo">
         <Button>立即使用</Button>
       </Link>
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <img src="/logo.png" alt="Logo" />
+      <h1 id={'intro'}>产品介绍</h1>
     </div>
   )
 }
