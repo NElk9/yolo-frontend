@@ -7,7 +7,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import Upload from '@/components/Upload'
 import { EXAMPLE_IMAGES, ExampleImgData } from '@/lib/const'
 
-export default function UploadPanel() {
+type UploadType = 'original' | 'compare'
+
+export default function UploadPanel({type}: {type: UploadType}) {
   const [file, setFile] = useState<File | null>(null)
   const [previewURL, setPreviewURL] = useState<string | null>(null)
   // 用户上传本地图片
@@ -50,7 +52,7 @@ export default function UploadPanel() {
           </div>
           <div className={'flex justify-center items-center gap-5'}>
             <Upload handleFileChange={handleFileChange} />
-            <Button>开始预测</Button>
+            <Button>{type === 'original' ? '开始预测' : '开始匹配'}</Button>
           </div>
         </div>
         <div className={'w-1/6 self-stretch flex flex-col gap-4 justify-between items-center'}>

@@ -1,11 +1,28 @@
+import DescriptionCard from '@/components/DescriptionCard'
+import ImgPanel from '@/components/ImgPanel'
 import TabsPanel from '@/components/TabsPanel'
 import UploadPanel from '@/components/UploadPanel'
 
 export default function index() {
   return (
-    <div id={'use'} className={'w-full h-screen pt-15 pb-8 px-20 bg-[#f5f8ff] flex gap-10'}>
-      <div className={'w-5/12 h-[420px]'}>
-        <UploadPanel />
+    <div
+      id={'use'}
+      className={'w-full h-screen pt-15 pb-8 px-20 bg-[#f5f8ff] flex gap-8'}
+    >
+      <div className={'w-5/12 h-full flex flex-col justify-start items-center gap-5 overflow-auto'}>
+        <div className={'w-full h-1/2'}>
+          <UploadPanel type={'original'} />
+        </div>
+        <div className={'flex items-center gap-1 w-full'}>
+          <img src={'/use/text-cut.png'} width={100} />
+          <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
+        </div>
+        <div className={'flex gap-3 w-full h-full'}>
+          <div className={'w-1/2'}>
+            <DescriptionCard itemId={'cut'} />
+          </div>
+          <div className={'w-1/2'}><ImgPanel /></div>
+        </div>
       </div>
       <div className={'w-7/12 h-full'}>
         <TabsPanel />

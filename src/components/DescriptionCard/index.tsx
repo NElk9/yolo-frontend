@@ -41,7 +41,7 @@ export default function DescriptionCard({ itemId }: { itemId: DescriptionKey }) 
   return (
     <div
       className={
-        'flex flex-col justify-start gap-3 px-12 py-7 bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/30 rounded-3xl'
+        'h-full flex flex-col justify-center gap-3 p-7 bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/30 rounded-3xl'
       }
     >
       <div className={'flex items-center gap-2'}>
