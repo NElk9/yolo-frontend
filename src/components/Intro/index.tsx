@@ -25,10 +25,10 @@ export default function Intro() {
       className={'w-screen h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8'}
     >
       <img src={'/intro.png'} width={450} />
-      <p className={'text-2xl text-[#818283] pb-14'}>
+      <p className={'text-2xl text-[#818283] pb-10'}>
         我们设计了一个网页，可以帮助您进行印章裁剪、真伪鉴别及印章匹配一系列操作。
       </p>
-      <div className={'flex justify-center items-center w-full gap-16'}>
+      <div className={'flex justify-center items-center w-full gap-[80px]'}>
         {cards.map((card: CardData, index) => (
           <IntroCard key={index} cardData={card} />
         ))}
@@ -41,11 +41,11 @@ function IntroCard({ cardData }: { cardData: CardData }) {
   return (
     <div
       className={
-        'w-[400px] h-[500px] bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/40 p-8 rounded-3xl flex flex-col justify-center items-center gap-5'
+        'w-[360px] h-[460px] bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/40 p-8 rounded-3xl flex flex-col justify-center items-center gap-5'
       }
     >
       <div className={'bg-white overflow-hidden rounded-3xl'}>
-        <img src={cardData.imgPath} width={240} />
+        <img src={cardData.imgPath} width={200} />
       </div>
       <p className={'text-center text-[#333333] font-semibold text-3xl pt-4'}>{cardData.title}</p>
       <p className={'text-center text-[#333333] text-xl'}>{cardData.description}</p>

@@ -36,7 +36,7 @@ export default function UploadPanel() {
   return (
     <Card className={'w-full h-full bg-white'}>
       <CardContent className={'h-full flex justify-between items-center gap-6'}>
-        <div className={'w-4/5 self-stretch flex flex-col justify-between gap-5'}>
+        <div className={'w-5/6 self-stretch flex flex-col justify-between gap-5'}>
           <div
             className={
               'w-full h-9/10 overflow-hidden rounded-2xl bg-gray-200 flex justify-center items-center'
@@ -53,7 +53,7 @@ export default function UploadPanel() {
             <Button>开始预测</Button>
           </div>
         </div>
-        <div className={'w-1/5 self-stretch flex flex-col gap-4 justify-between items-center'}>
+        <div className={'w-1/6 self-stretch flex flex-col gap-4 justify-between items-center'}>
           <div className={'font-semibold'}>示例图片</div>
           <ScrollArea className={'w-full h-full'}>
             <div className={'flex flex-col gap-4'}>
