@@ -1,69 +1,77 @@
-import { create } from 'zustand'
+import { create } from 'zustand/react'
+import { ProcessStage } from '@/lib/const'
 
-type ImageData = {
-  // 原图：url+上传的file
-  originalImage: File | null
-  originalImageURL: string | null
-  // 裁剪后图片：第2、3步输入 存file
-  croppedImage: File | null
-  croppedImageURL: string | null
-  // 预处理后图片：url
-  preprocessedImageURL: string | null
-  // 图片是否为真
+type ImageEntry = {
+  stage: ProcessStage
+  // 标识是同一张图片
+  sessionId: string | null
+  // 第一次上传的原图文件，用户点击开始预测 才保存到这里
+  originalImgFile: File | null
+  // 第二次用户上传的比较图文件，用户点击开始匹配 才保存到这里
+  compareImgFile: File | null
+  // 裁剪后图片 step1结果
+  croppedImgBase64: string | null // data:image/...;base64,...
+  // step2 预处理后图片
+  preprocessedImgBase64: string | null // data:image/...;base64,...
+  // step2 真伪判断结果输出
+  authenticity: string | null
   isTrue: boolean | null
-  // 真伪概率
-  authenticityProbability: number | null
-  // 几何校正后图片：url
-  geoCorrectedImageURL: string | null
-  // 用户上传的比对图片：file
-  compareImage: File | null
-  compareImageURL: string | null
-  // 一致性概率
-  consistencyProbability: number | null
+  // step3 几何校正后图片
+  geoImgBase64: string | null
+  // step3 几何校正后输出
+  possibility: string | null
+  isSame: boolean | null
 }
 
-interface ImageState {
-  // 原图：url+上传的file
-  originalImage: File | null
-  originalImageURL: string
-  // 裁剪后图片：第2、3步输入 存file
-  croppedImage: File | null
-  croppedImageURL: string
-  // 预处理后图片：url
-  preprocessedImageURL: string
-  // 图片是否为真
-  isTrue: boolean | null
-  // 真伪概率
-  authenticityProbability: number | null
-  // 几何校正后图片：url
-  geoCorrectedImageURL: string
-  // 用户上传的比对图片：file
-  compareImage: File | null
-  compareImageURL: string
-  // 一致性概率
-  consistencyProbability: number | null
-  reset: () => void
-  setOriginalImage: (image: File | null) => void
-  setOriginalImageURL: (url: string) => void
-}
-
-const initialState: Omit<ImageState, 'reset' | 'setOriginalImage' | 'setOriginalImageURL'> = {
-  originalImage: null,
-  originalImageURL: '',
-  croppedImage: null,
-  croppedImageURL: '',
-  preprocessedImageURL: '',
+const initialState: ImageEntry = {
+  stage: ProcessStage.INITIAL,
+  // 标识是同一张图片
+  sessionId: null,
+  // 第一次上传的原图文件，用户点击开始预测 才保存到这里
+  originalImgFile: null,
+  // 裁剪后图片 step1结果
+  croppedImgBase64: null, // data:image/...;base64,...
+  // step2 预处理后图片
+  preprocessedImgBase64: null, // data:image/...;base64,...
+  // step2 真伪判断结果输出
+  authenticity: null,
   isTrue: null,
-  authenticityProbability: 0,
-  geoCorrectedImageURL: '',
-  compareImage: null,
-  compareImageURL: '',
-  consistencyProbability: 0,
+  // 第二次用户上传的比较图文件，用户点击开始匹配 才保存到这里
+  compareImgFile: null,
+  // step3 几何校正后图片
+  geoImgBase64: null,
+  // step3 几何校正后输出
+  possibility: null,
+  isSame: null,
 }
 
-export const useImageStore = create<ImageState>((set) => ({
+export type PredictRes = Pick<
+  ImageEntry,
+  'sessionId' | 'croppedImgBase64' | 'preprocessedImgBase64' | 'authenticity' | 'isTrue'
+>
+
+export type CompareRes = Pick<ImageEntry, 'possibility' | 'isSame' | 'geoImgBase64'>
+
+type ImageStore = ImageEntry & {
+  setStage: (stage: ProcessStage) => void
+  setFromDetect: (payload: PredictRes) => void
+  setOriginalImgFile: (image: File) => void
+  setCompareImgFile: (image: File) => void
+  setFromCompare: (payload: CompareRes) => void
+  clear: () => void
+}
+
+export const useImageStore = create<ImageStore>((set) => ({
   ...initialState,
-  reset: () => set({ ...initialState }),
-  setOriginalImage: (image: File | null) => set({ originalImage: image }),
-  setOriginalImageURL: (url: string) => set({ originalImageURL: url }),
+
+  setStage: (stage: ProcessStage) => set({ stage }),
+  // 点击 开始预测 后，立即保存原始图片file
+  setOriginalImgFile: (image: File) => set({ originalImgFile: image }),
+  // 点击 开始预测 后，返回裁剪图片、预处理图片、真伪输出、sessionId再保存
+  setFromDetect: (payload) => set({ ...payload }),
+  // 点击 开始匹配 后。立即保存用户上传的比较图
+  setCompareImgFile: (image: File) => set({ compareImgFile: image }),
+  // 点击 开始匹配 后，返回几何校正图片、一致性输出再保存
+  setFromCompare: (payload) => set({ ...payload }),
+  clear: () => set({ ...initialState }),
 }))

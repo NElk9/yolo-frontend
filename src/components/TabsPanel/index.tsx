@@ -1,10 +1,10 @@
 import CompareIcon from '@/assets/demo/compare.svg'
 import StampIcon from '@/assets/demo/stamp.svg'
 import DescriptionCard from '@/components/DescriptionCard'
-import ImgPanel from '@/components/ImgPanel'
+import ImgPanel, { ImgPanelType } from '@/components/ImgPanel'
 import ResultPanel from '@/components/ResultPanel'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import UploadPanel from "@/components/UploadPanel";
+import UploadPanel from '@/components/UploadPanel'
 
 type TabData = {
   icon: React.ReactNode
@@ -54,7 +54,7 @@ export default function TabsPanel() {
           <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
         <div className={'flex items-center justify-between gap-4 w-full flex-1'}>
-          <ImgPanel />
+          <ImgPanel type={ImgPanelType.PREPROCESS} />
           <ResultPanel />
         </div>
       </TabsContent>
@@ -68,12 +68,12 @@ export default function TabsPanel() {
           </div>
         </div>
         <div className={'flex items-center gap-1'}>
-          <img src={'/use/text-res-compare.png'} width={100}/>
-          <div className={'bg-[#e5e5e5] h-[2px] w-full'}/>
+          <img src={'/use/text-res-compare.png'} width={100} />
+          <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
         <div className={'flex items-center justify-between gap-4 w-full flex-1'}>
-          <ImgPanel/>
-          <ResultPanel/>
+          <ImgPanel type={ImgPanelType.GEO} />
+          <ResultPanel />
         </div>
       </TabsContent>
     </Tabs>

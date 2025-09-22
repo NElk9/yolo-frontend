@@ -1,3 +1,9 @@
+export enum ProcessStage {
+  INITIAL,
+  LOADING,
+  DONE,
+}
+
 // 示例图片（原图）
 export type ExampleImgData = {
   name: string
@@ -9,7 +15,7 @@ export const EXAMPLE_IMAGES: ExampleImgData[] = [
   {
     name: '示例图1',
     originalImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
-    compareImgPath: '',
+    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
   },
   // {
   //   name: '示例图4',
@@ -19,11 +25,11 @@ export const EXAMPLE_IMAGES: ExampleImgData[] = [
   {
     name: '示例图2',
     originalImgPath: '/exampleOriginalImg/xmu.jpg',
-    compareImgPath: '',
+    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
   },
   {
     name: '示例图3',
     originalImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
-    compareImgPath: '',
+    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
   },
 ]
