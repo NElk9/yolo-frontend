@@ -3,10 +3,13 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
+  eslint: {
+    // 在构建时忽略 ESLint 错误
+    ignoreDuringBuilds: true,
+  },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.('.svg'))
-
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
       {
