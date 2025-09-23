@@ -29,7 +29,7 @@ export default function ImgPanel({ type }: { type: ImgPanelType }) {
   }[type]
   const handleClickDownload = () => {
     if (!imgSrc) {
-      toast.error('图片加载中，请稍后')
+      toast.error('请上传图片')
       return
     }
     downloadBase64Image(imgSrc, `${type}.png`)
