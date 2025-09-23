@@ -29,7 +29,7 @@ export default function TabsPanel() {
   return (
     <Tabs
       className={
-        'w-full h-full overflow-auto bg-white shadow-[#E9EAFF] shadow-lg rounded-xl py-3 px-4 flex flex-col items-center justify-center'
+        'w-full h-full overflow-auto bg-white shadow-[#E9EAFF] shadow-lg rounded-xl py-3 px-4 flex flex-col items-center justify-start'
       }
       defaultValue={'authenticity'}
     >

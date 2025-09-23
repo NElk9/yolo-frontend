@@ -30,6 +30,7 @@ export default function ImgPanel({ type }: { type: ImgPanelType }) {
     [ImgPanelType.PREPROCESS]: preprocessedImgBase64,
     [ImgPanelType.GEO]: geoImgBase64,
   }[type]
+  // const imgSrc = 'public/exampleOriginalImg/exampleOriginalImg1.png'
   const handleClickDownload = () => {
     if (!imgSrc) {
       toast.error('请上传图片')
