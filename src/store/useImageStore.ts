@@ -59,6 +59,7 @@ type ImageStore = ImageEntry & {
   setCompareImgFile: (image: File) => void
   setFromCompare: (payload: CompareRes) => void
   clear: () => void
+  clearCompare: () => void
 }
 
 export const useImageStore = create<ImageStore>((set) => ({
@@ -74,4 +75,6 @@ export const useImageStore = create<ImageStore>((set) => ({
   // 点击 开始匹配 后，返回几何校正图片、一致性输出再保存
   setFromCompare: (payload) => set((state) => ({ ...state, ...payload })),
   clear: () => set({ ...initialState }),
+  clearCompare: () =>
+    set({ compareImgFile: null, geoImgBase64: null, possibility: null, isSame: null }),
 }))

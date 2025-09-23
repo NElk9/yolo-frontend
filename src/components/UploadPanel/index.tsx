@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Upload from '@/components/Upload'
 import { compare, predict } from '@/lib/api/predict'
-import { EXAMPLE_IMAGES, ExampleImgData } from '@/lib/const'
+import {EXAMPLE_IMAGES, ExampleImgData, ProcessStage} from '@/lib/const'
 import { extractPercentage } from '@/lib/utils'
 import { useImageStore } from '@/store/useImageStore'
 
@@ -19,17 +19,27 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   const [file, setFile] = useState<File | null>(null)
   const [previewURL, setPreviewURL] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [sessionId, setOriginalImgFile, setFromDetect, setCompareImgFile, setFromCompare, clear] =
-    useImageStore(
-      useShallow((state) => [
-        state.sessionId,
-        state.setOriginalImgFile,
-        state.setFromDetect,
-        state.setCompareImgFile,
-        state.setFromCompare,
-        state.clear,
-      ]),
-    )
+  const [
+    sessionId,
+    setOriginalImgFile,
+    setFromDetect,
+    setCompareImgFile,
+    setFromCompare,
+    clear,
+    clearCompare,
+    setStage,
+  ] = useImageStore(
+    useShallow((state) => [
+      state.sessionId,
+      state.setOriginalImgFile,
+      state.setFromDetect,
+      state.setCompareImgFile,
+      state.setFromCompare,
+      state.clear,
+      state.clearCompare,
+      state.setStage,
+    ]),
+  )
   // 用户上传本地图片
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null
@@ -39,7 +49,11 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   // 用户上传图片后同步得到预览url
   useEffect(() => {
     // 每次file变化，说明图片变化，此时清空store
-    clear()
+    if (type === 'original') {
+      clear()
+    } else if (type === 'compare') {
+      clearCompare()
+    }
     if (!file) return
     const url = URL.createObjectURL(file)
     setPreviewURL(url)
@@ -54,6 +68,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   }
   // 进行步骤1和2
   const startPredict = async (uploadFile: File) => {
+    setStage(ProcessStage.AUTHENTIC)
     const data = await predict(uploadFile)
     if (data.status === 'success') {
       // 提取真伪输出结果和概率 输出样例  分类结果：true_sea（置信度：95.93%)
@@ -76,6 +91,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
     }
   }
   const startCompare = async (uploadFile: File) => {
+    setStage(ProcessStage.COMPARE)
     const formData = new FormData()
     formData.append('image', uploadFile)
     if (sessionId) formData.append('session_id', sessionId)
@@ -120,6 +136,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       throw e
     } finally {
       setLoading(false)
+      setStage(ProcessStage.DONE)
     }
   }
   return (
@@ -142,7 +159,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
               <Button disabled={loading}>点击上传</Button>
             </Upload>
             <Button onClick={handleClickStart} disabled={loading}>
-              {type === 'original' ? '开始预测' : '开始匹配'}
+              {type === 'original' ? '开始检测' : '开始匹配'}
             </Button>
           </div>
         </div>
