@@ -1,8 +1,6 @@
 // 上传组件封装
 import { useRef } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import { Button } from '@/components/ui/button'
-import { useImageStore } from '@/store/useImageStore'
 
 interface UploadProps {
   children?: React.ReactNode

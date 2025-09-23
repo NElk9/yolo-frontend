@@ -1,9 +1,9 @@
 import CompareIcon from '@/assets/demo/compare.svg'
 import StampIcon from '@/assets/demo/stamp.svg'
 import DescriptionCard from '@/components/DescriptionCard'
-import ImgPanel, {ImgPanelType} from '@/components/ImgPanel'
-import ResultPanel, {ResultPanelType} from '@/components/ResultPanel'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+import ImgPanel, { ImgPanelType } from '@/components/ImgPanel'
+import ResultPanel, { ResultPanelType } from '@/components/ResultPanel'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import UploadPanel from '@/components/UploadPanel'
 
 type TabData = {
