@@ -1,6 +1,7 @@
 export enum ProcessStage {
   INITIAL,
-  LOADING,
+  AUTHENTIC,
+  COMPARE,
   DONE,
 }
 
