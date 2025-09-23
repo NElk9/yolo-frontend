@@ -5,6 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// 下载base64图片
 export function downloadBase64Image(base64Data: string, fileName = 'image.png') {
   if (!base64Data) return
 
@@ -18,4 +19,16 @@ export function downloadBase64Image(base64Data: string, fileName = 'image.png') 
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+}
+
+// 寻找小数，转化成百分比形式的字符串 小数点后两位
+export function extractPercentage(result: string): string {
+  const match = result.match(/([0-9]*\.[0-9]+)/)
+  if (!match) return '--'
+
+  const num = parseFloat(match[1])
+  if (isNaN(num)) return '--'
+
+  // 转百分比，保留两位小数，返回字符串（不带 %）
+  return (num * 100).toFixed(2)
 }

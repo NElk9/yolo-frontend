@@ -68,10 +68,10 @@ export const useImageStore = create<ImageStore>((set) => ({
   // 点击 开始预测 后，立即保存原始图片file
   setOriginalImgFile: (image: File) => set({ originalImgFile: image }),
   // 点击 开始预测 后，返回裁剪图片、预处理图片、真伪输出、sessionId再保存
-  setFromDetect: (payload) => set({ ...payload }),
+  setFromDetect: (payload) => set((state) => ({ ...state, ...payload })),
   // 点击 开始匹配 后。立即保存用户上传的比较图
   setCompareImgFile: (image: File) => set({ compareImgFile: image }),
   // 点击 开始匹配 后，返回几何校正图片、一致性输出再保存
-  setFromCompare: (payload) => set({ ...payload }),
+  setFromCompare: (payload) => set((state) => ({ ...state, ...payload })),
   clear: () => set({ ...initialState }),
 }))

@@ -9,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import Upload from '@/components/Upload'
 import { compare, predict } from '@/lib/api/predict'
 import { EXAMPLE_IMAGES, ExampleImgData } from '@/lib/const'
+import { extractPercentage } from '@/lib/utils'
 import { useImageStore } from '@/store/useImageStore'
 
 // 这个组件用于上传原图和印章对比图
@@ -18,7 +19,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   const [file, setFile] = useState<File | null>(null)
   const [previewURL, setPreviewURL] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [sessionId, setOriginalImgFile, setFromDetect, setCompareImgFile, setFromCompare] =
+  const [sessionId, setOriginalImgFile, setFromDetect, setCompareImgFile, setFromCompare, clear] =
     useImageStore(
       useShallow((state) => [
         state.sessionId,
@@ -26,6 +27,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
         state.setFromDetect,
         state.setCompareImgFile,
         state.setFromCompare,
+        state.clear,
       ]),
     )
   // 用户上传本地图片
@@ -36,6 +38,8 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   }
   // 用户上传图片后同步得到预览url
   useEffect(() => {
+    // 每次file变化，说明图片变化，此时清空store
+    clear()
     if (!file) return
     const url = URL.createObjectURL(file)
     setPreviewURL(url)
@@ -56,7 +60,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       const result = data.crossvit_output
       // 提取真假
       const isTrue: boolean = /true/i.test(result)
-      // 提取置信度
+      // 提取置信度:不包含% 只包括前面数字部分的字符串
       const authenticity: string = result.match(/置信度[:：]\s*([\d.]+)%/)?.[1] ?? '--'
       // 返回裁剪图片、预处理图片、真伪输出、sessionId再保存
       setFromDetect({
@@ -79,7 +83,12 @@ export default function UploadPanel({ type }: { type: UploadType }) {
     if (data.status === 'success') {
       const result = data.mathmethod_output
       const isSame: boolean = !result.includes('不一致')
-      // TODO: 提取一致性概率，setFromCompare
+      const possibility = extractPercentage(result)
+      setFromCompare({
+        possibility: possibility,
+        isSame: isSame,
+        geoImgBase64: data.processed_image,
+      })
     } else {
       toast('印章匹配失败')
       console.error(data.error)
