@@ -13,7 +13,7 @@ import { useImageStore } from '@/store/useImageStore'
 export enum ImgPanelType {
   CUT = '印章裁剪',
   PREPROCESS = '印章预处理',
-  GEO = '印章矫正',
+  GEO = '印章校正',
 }
 
 export default function ImgPanel({ type }: { type: ImgPanelType }) {

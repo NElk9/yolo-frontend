@@ -14,7 +14,7 @@ const cards: CardData[] = [
   {
     imgPath: '/intro/card3.png',
     title: '印章匹配',
-    description: '对印章进行几何矫正，判断其与另一印章是否为同一印章',
+    description: '对印章进行几何校正，判断其与另一印章是否为同一印章',
   },
 ]
 
