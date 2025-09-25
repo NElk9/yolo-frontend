@@ -15,7 +15,7 @@ export type ExampleImgData = {
 export const EXAMPLE_IMAGES: ExampleImgData[] = [
   {
     name: '示例图1',
-    originalImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
+    originalImgPath: '/exampleOriginalImg/test.png',
     compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
   },
   // {
