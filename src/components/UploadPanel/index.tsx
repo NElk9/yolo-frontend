@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Upload from '@/components/Upload'
 import { compare, predict } from '@/lib/api/predict'
-import {EXAMPLE_IMAGES, ExampleImgData, ProcessStage} from '@/lib/const'
+import { EXAMPLE_IMAGES, ExampleImgData, ProcessStage } from '@/lib/const'
 import { extractPercentage } from '@/lib/utils'
 import { useImageStore } from '@/store/useImageStore'
 
@@ -64,7 +64,8 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   // 点击示例图片，清除file并切换预览url
   const handleClickExample = (exampleImg: ExampleImgData) => {
     setFile(null)
-    setPreviewURL(exampleImg.originalImgPath)
+    const tmpURL = type === 'original' ? exampleImg.originalImgPath : exampleImg.compareImgPath
+    setPreviewURL(tmpURL)
   }
   // 进行步骤1和2
   const startPredict = async (uploadFile: File) => {
