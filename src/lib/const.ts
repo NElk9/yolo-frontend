@@ -15,22 +15,17 @@ export type ExampleImgData = {
 export const EXAMPLE_IMAGES: ExampleImgData[] = [
   {
     name: '示例图1',
-    originalImgPath: '/exampleOriginalImg/test.png',
-    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
+    originalImgPath: '/example/1.jpg',
+    compareImgPath: '/example/11.jpg',
   },
-  // {
-  //   name: '示例图4',
-  //   originalImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
-  //   compareImgPath: '',
-  // },
   {
     name: '示例图2',
-    originalImgPath: '/exampleOriginalImg/xmu.jpg',
-    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
+    originalImgPath: '/example/2.jpg',
+    compareImgPath: '/example/22.jpg',
   },
   {
     name: '示例图3',
-    originalImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
-    compareImgPath: '/exampleOriginalImg/exampleOriginalImg1.png',
+    originalImgPath: '/example/3.jpg',
+    compareImgPath: '/example/33.jpg',
   },
 ]
