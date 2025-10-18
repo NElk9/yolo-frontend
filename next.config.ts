@@ -1,7 +1,17 @@
 import type { NextConfig } from 'next'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig: NextConfig = {
   /* config options here */
+  output: 'export', // 👈 关键：启用静态导出模式
+  images: {
+    unoptimized: true, // 如果你用到了 next/image，这一项必须加
+  },
+  // assetPrefix: './',
+  basePath: isProd ? '/yolo-frontend' : '',
+  assetPrefix: isProd ? '/yolo-frontend/' : '',
+  // trailingSlash: true,
   reactStrictMode: true,
   eslint: {
     // 在构建时忽略 ESLint 错误

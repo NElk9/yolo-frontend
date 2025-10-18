@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 export default function Hero() {
   return (
-    <div id={'hero'} className={'w-screen h-screen relative flex items-center'}>
+    <div id={'hero'} className={'w-full h-screen relative flex items-center'}>
       <img
         src={'/bg.png'}
         className={'absolute inset-0 w-full h-full object-cover object-center -z-10'}

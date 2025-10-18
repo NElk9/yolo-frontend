@@ -22,7 +22,7 @@ export default function Intro() {
   return (
     <div
       id={'intro'}
-      className={'w-screen h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8'}
+      className={'w-full h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8'}
     >
       <img src={'/intro.png'} width={450} />
       <p className={'text-2xl text-[#818283] pb-10'}>
