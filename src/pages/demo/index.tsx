@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import DescriptionCard from '@/components/DescriptionCard'
 import ImgPanel, { ImgPanelType } from '@/components/ImgPanel'
 import TabsPanel from '@/components/TabsPanel'
@@ -11,7 +12,7 @@ export default function index() {
           <UploadPanel type={'original'} />
         </div>
         <div className={'flex items-center gap-1 w-full'}>
-          <img src={'/use/text-cut.png'} width={100} />
+          <Image alt={''} src={'/use/text-cut.png'} width={100} height={100} />
           <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
         <div className={'flex gap-3 w-full h-full'}>

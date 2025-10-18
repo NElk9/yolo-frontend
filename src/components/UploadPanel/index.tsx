@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Image } from 'antd'
+import NextImage from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
 import ImgIcon from '@/assets/demo/img.svg'
 import { Button } from '@/components/ui/button'
@@ -174,9 +175,12 @@ export default function UploadPanel({ type }: { type: UploadType }) {
                   className={'w-full aspect-square rounded-2xl overflow-hidden cursor-pointer'}
                   onClick={() => handleClickExample(image)}
                 >
-                  <img
+                  <NextImage
                     src={type === 'original' ? image.originalImgPath : image.compareImgPath}
                     className={'w-full h-full object-cover object-center'}
+                    alt={''}
+                    height={200}
+                    width={200}
                   />
                 </div>
               ))}

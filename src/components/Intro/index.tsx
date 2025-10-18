@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type CardData = {
   imgPath: string
   title: string
@@ -24,7 +26,7 @@ export default function Intro() {
       id={'intro'}
       className={'w-full h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8'}
     >
-      <img src={'/intro.png'} width={450} />
+      <Image alt={''} src={'/intro.png'} width={450} height={450} />
       <p className={'text-2xl text-[#818283] pb-10'}>
         我们设计了一个网页，可以帮助您进行印章裁剪、真伪鉴别及印章匹配一系列操作。
       </p>
@@ -45,7 +47,7 @@ function IntroCard({ cardData }: { cardData: CardData }) {
       }
     >
       <div className={'bg-white overflow-hidden rounded-3xl'}>
-        <img src={cardData.imgPath} width={200} />
+        <Image alt={''} src={cardData.imgPath} width={200} height={200} />
       </div>
       <p className={'text-center text-[#333333] font-semibold text-3xl pt-4'}>{cardData.title}</p>
       <p className={'text-center text-[#333333] text-xl'}>{cardData.description}</p>

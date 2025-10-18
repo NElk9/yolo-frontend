@@ -2,6 +2,7 @@ import { useShallow } from 'zustand/react/shallow'
 import LoadingIcon from '@/assets/demo/loading.svg'
 import { Card, CardContent } from '@/components/ui/card'
 import { useImageStore } from '@/store/useImageStore'
+import Image from "next/image";
 
 export enum ResultPanelType {
   AUTHENTICITY = '印章真伪判定结果',
@@ -33,7 +34,7 @@ export default function ResultPanel({ type }: { type: ResultPanelType }) {
         {config.valid ? (
           <>
             <div className="flex justify-center items-center">
-              <img src={config.img} width={260} />
+              <Image src={config.img} width={260} height={260} alt={''} />
             </div>
             <p className="text-xl font-semibold">
               {config.text}
