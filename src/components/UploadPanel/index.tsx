@@ -162,7 +162,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       }
     } catch (e) {
       console.error(e)
-      toast.error('处理失败')
+      toast.error('印章匹配失败')
     } finally {
       setLoading(false)
       setStage(ProcessStage.DONE)
