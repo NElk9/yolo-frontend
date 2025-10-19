@@ -90,7 +90,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
         croppedImgBase64: data.original_cropped_image,
       })
     } else {
-      toast('处理失败')
+      toast('未检测到印章')
       console.error(data.error)
     }
   }
