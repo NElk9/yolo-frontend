@@ -32,3 +32,8 @@ export function extractPercentage(result: string): string {
   // 转百分比，保留两位小数，返回字符串（不带 %）
   return (num * 100).toFixed(2)
 }
+
+export function getImgSrc(src: string): string {
+  const isProd = process.env.NODE_ENV === 'production'
+  return isProd ? '/yolo-frontend' + src : src
+}

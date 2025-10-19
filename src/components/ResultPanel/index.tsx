@@ -3,6 +3,7 @@ import LoadingIcon from '@/assets/demo/loading.svg'
 import { Card, CardContent } from '@/components/ui/card'
 import { useImageStore } from '@/store/useImageStore'
 import Image from "next/image";
+import {getImgSrc} from "@/lib/utils";
 
 export enum ResultPanelType {
   AUTHENTICITY = '印章真伪判定结果',
@@ -17,13 +18,13 @@ export default function ResultPanel({ type }: { type: ResultPanelType }) {
     type === ResultPanelType.AUTHENTICITY
       ? {
           valid: isTrue !== null && authenticity !== null,
-          img: isTrue ? '/use/true.png' : '/use/false.png',
+          img: isTrue ? getImgSrc('/use/true.png') : getImgSrc('/use/false.png'),
           text: isTrue ? '系统认为其是真章的概率值：' : '系统认为其是假章的概率值：',
           prob: authenticity,
         }
       : {
           valid: isSame !== null && possibility !== null,
-          img: isSame ? '/use/same.png' : '/use/notsame.png',
+          img: isSame ? getImgSrc('/use/same.png') : getImgSrc('/use/notsame.png'),
           text: isSame ? '两枚印章一致的概率值：' : '两枚印章不一致的概率值：',
           prob: possibility,
         }

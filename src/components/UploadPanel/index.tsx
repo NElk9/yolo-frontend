@@ -18,6 +18,7 @@ type UploadType = 'original' | 'compare'
 
 export default function UploadPanel({ type }: { type: UploadType }) {
   const [file, setFile] = useState<File | null>(null)
+  const [example, setExample] = useState<ExampleImgData | null>(null)
   const [previewURL, setPreviewURL] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [
@@ -61,10 +62,11 @@ export default function UploadPanel({ type }: { type: UploadType }) {
     return () => {
       URL.revokeObjectURL(url)
     }
-  }, [file])
+  }, [file, example])
   // 点击示例图片，清除file并切换预览url
   const handleClickExample = (exampleImg: ExampleImgData) => {
     setFile(null)
+    setExample(exampleImg)
     const tmpURL = type === 'original' ? exampleImg.originalImgPath : exampleImg.compareImgPath
     setPreviewURL(tmpURL)
   }
@@ -120,22 +122,47 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       return
     }
     setLoading(true)
-    let uploadFile: File | null = file
-    // 如果只有flie空，说明选中的是示例图片，先转化成file格式
-    if (!uploadFile) {
-      const res = await fetch(previewURL) // public/example.jpg
-      const blob = await res.blob()
-      uploadFile = new File([blob], 'example.jpg', { type: blob.type })
-    }
-    const saveImgFile = type === 'original' ? setOriginalImgFile : setCompareImgFile
-    const startFunc = type === 'original' ? startPredict : startCompare
-    // 保存图片 然后调用接口并处理接口返回结果
-    saveImgFile(uploadFile)
     try {
-      await startFunc(uploadFile)
+      if (file) {
+        // ✅ 情况1：用户上传图片（真实调用接口）
+        const uploadFile = file
+        const saveImgFile = type === 'original' ? setOriginalImgFile : setCompareImgFile
+        const startFunc = type === 'original' ? startPredict : startCompare
+        saveImgFile(uploadFile)
+        await startFunc(uploadFile)
+      } else if (example) {
+        // ✅ 情况2：示例图片（假装处理，2-3秒后展示固定结果）
+        toast('正在处理，请稍候...')
+        setStage(type === 'original' ? ProcessStage.AUTHENTIC : ProcessStage.COMPARE)
+
+        // 模拟耗时 2~3 秒
+        const delay = 2000 + Math.random() * 1000
+        await new Promise((resolve) => setTimeout(resolve, delay))
+
+        // 从示例配置中取演示结果（或写死）
+        if (type === 'original') {
+          setFromDetect({
+            authenticity: example.authenticity,
+            isTrue: example.isTrue,
+            preprocessedImgBase64: example.preprocessedImgPath,
+            croppedImgBase64: example.cutImgPath,
+            sessionId: 'example-session-id',
+          })
+        } else if (type === 'compare') {
+          const id = example.id
+          setFromCompare({
+            possibility: example.compareRes[id].possibility,
+            isSame: example.compareRes[id].isSame,
+            geoImgBase64: example.correctImgPath,
+          })
+        }
+        toast.success('已处理完毕，请查看结果')
+      } else {
+        toast.error('请选择图片')
+      }
     } catch (e) {
       console.error(e)
-      throw e
+      toast.error('处理失败')
     } finally {
       setLoading(false)
       setStage(ProcessStage.DONE)

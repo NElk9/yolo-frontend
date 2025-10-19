@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useIsScroll from '@/hooks/use-is-scroll'
-import { cn } from '@/lib/utils'
+import {cn, getImgSrc} from '@/lib/utils'
 import Image from "next/image";
 
 type MenuData = {
@@ -73,7 +73,7 @@ export default function Header() {
     >
       <div className={'w-full h-full flex items-center px-20 gap-[200px]'}>
         <Link href="/" className={'flex-shrink-0'}>
-          <Image src="/logo.png" height={100} width={100} alt="Logo" />
+          <Image src={getImgSrc("/logo.png")} height={100} width={100} alt="Logo" />
         </Link>
         <div className={'flex items-center justify-between min-w-[450px]'}>
           {menuData.map((menu, index) => {
