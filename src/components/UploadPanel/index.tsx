@@ -9,8 +9,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Upload from '@/components/Upload'
 import { compare, predict } from '@/lib/api/predict'
-import { EXAMPLE_IMAGES, ExampleImgData, ProcessStage } from '@/lib/const'
+import {
+  EXAMPLE_COMPARE_IMAGES,
+  EXAMPLE_IMAGES,
+  ExampleImgData,
+  ImageData,
+  ProcessStage,
+} from '@/lib/const'
 import { extractPercentage } from '@/lib/utils'
+import { useExampleStore } from '@/store/useExampleStore'
 import { useImageStore } from '@/store/useImageStore'
 
 // 这个组件用于上传原图和印章对比图
@@ -18,9 +25,12 @@ type UploadType = 'original' | 'compare'
 
 export default function UploadPanel({ type }: { type: UploadType }) {
   const [file, setFile] = useState<File | null>(null)
-  const [example, setExample] = useState<ExampleImgData | null>(null)
+  const [example, setExample] = useState<ImageData | ExampleImgData | null>(null)
   const [previewURL, setPreviewURL] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [exampleId, setExampleId] = useExampleStore(
+    useShallow((state) => [state.exampleId, state.setExampleId]),
+  )
   const [
     sessionId,
     setOriginalImgFile,
@@ -42,6 +52,8 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       state.setStage,
     ]),
   )
+  const exampleImgs: ImageData[] | ExampleImgData[] =
+    type === 'original' ? EXAMPLE_IMAGES : EXAMPLE_COMPARE_IMAGES
   // 用户上传本地图片
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null
@@ -57,6 +69,9 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       clearCompare()
     }
     if (!file) return
+    // file不空 说明没有选中示例图 示例图置空
+    setExample(null)
+    setExampleId(null)
     const url = URL.createObjectURL(file)
     setPreviewURL(url)
     return () => {
@@ -64,10 +79,13 @@ export default function UploadPanel({ type }: { type: UploadType }) {
     }
   }, [file, example])
   // 点击示例图片，清除file并切换预览url
-  const handleClickExample = (exampleImg: ExampleImgData) => {
+  const handleClickExample = (exampleImg: ExampleImgData | ImageData) => {
     setFile(null)
     setExample(exampleImg)
-    const tmpURL = type === 'original' ? exampleImg.originalImgPath : exampleImg.compareImgPath
+    if (type === 'original') {
+      setExampleId(exampleImg.id)
+    }
+    const tmpURL = (exampleImg as { src: string }).src
     setPreviewURL(tmpURL)
   }
   // 进行步骤1和2
@@ -111,14 +129,14 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       })
     } else {
       toast('印章匹配失败')
-      console.error(data.error)
+      // console.error(data.error)
     }
   }
   // 点击 开始预测/开始匹配 按钮：统一example和file格式 发送请求
   const handleClickStart = async () => {
     // 如果file和预览url都空，说明没有选择图片，toast报错
     if (!previewURL) {
-      toast.error('请选择图片')
+      toast.error('请选择原图')
       return
     }
     setLoading(true)
@@ -130,9 +148,8 @@ export default function UploadPanel({ type }: { type: UploadType }) {
         const startFunc = type === 'original' ? startPredict : startCompare
         saveImgFile(uploadFile)
         await startFunc(uploadFile)
-      } else if (example) {
+      } else if (example && exampleId !== null) {
         // ✅ 情况2：示例图片（假装处理，2-3秒后展示固定结果）
-        toast('正在处理，请稍候...')
         setStage(type === 'original' ? ProcessStage.AUTHENTIC : ProcessStage.COMPARE)
 
         // 模拟耗时 2~3 秒
@@ -141,27 +158,26 @@ export default function UploadPanel({ type }: { type: UploadType }) {
 
         // 从示例配置中取演示结果（或写死）
         if (type === 'original') {
+          const e = example as ExampleImgData
           setFromDetect({
-            authenticity: example.authenticity,
-            isTrue: example.isTrue,
-            preprocessedImgBase64: example.preprocessedImgPath,
-            croppedImgBase64: example.cutImgPath,
+            authenticity: e.authenticity,
+            isTrue: e.isTrue,
+            preprocessedImgBase64: e.preprocessedImgPath,
+            croppedImgBase64: e.cutImgPath,
             sessionId: 'example-session-id',
           })
         } else if (type === 'compare') {
           const id = example.id
           setFromCompare({
-            possibility: example.compareRes[id].possibility,
-            isSame: example.compareRes[id].isSame,
-            geoImgBase64: example.correctImgPath,
+            possibility: EXAMPLE_IMAGES[exampleId].compareRes[id].possibility,
+            isSame: EXAMPLE_IMAGES[exampleId].compareRes[id].isSame,
+            geoImgBase64: EXAMPLE_IMAGES[exampleId].correctImgPath,
           })
         }
-        toast.success('已处理完毕，请查看结果')
       } else {
         toast.error('请选择图片')
       }
     } catch (e) {
-      console.error(e)
       toast.error('未检测到印章')
     } finally {
       setLoading(false)
@@ -196,14 +212,14 @@ export default function UploadPanel({ type }: { type: UploadType }) {
           <div className={'font-semibold'}>示例图片</div>
           <ScrollArea className={'w-full h-full'}>
             <div className={'flex flex-col gap-4'}>
-              {EXAMPLE_IMAGES.map((image, index) => (
+              {exampleImgs.map((image, index) => (
                 <div
                   key={index}
                   className={'w-full aspect-square rounded-2xl overflow-hidden cursor-pointer'}
                   onClick={() => handleClickExample(image)}
                 >
                   <NextImage
-                    src={type === 'original' ? image.originalImgPath : image.compareImgPath}
+                    src={image.src}
                     className={'w-full h-full object-cover object-center'}
                     alt={''}
                     height={200}

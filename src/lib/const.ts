@@ -11,11 +11,13 @@ export type CompareRes = {
   possibility: string
   isSame: boolean
 }
-// 示例图片（原图）
-export type ExampleImgData = {
+
+export type ImageData = {
   id: number
-  originalImgPath: string
-  compareImgPath: string
+  src: string
+}
+// 示例图片（原图）
+export type ExampleImgData = ImageData & {
   cutImgPath: string
   preprocessedImgPath: string
   correctImgPath: string
@@ -26,11 +28,16 @@ export type ExampleImgData = {
   compareRes: CompareRes[]
 }
 
+export const EXAMPLE_COMPARE_IMAGES: ImageData[] = [
+  { id: 0, src: getImgSrc('/example/11.jpg') },
+  { id: 1, src: getImgSrc('/example/22.jpg') },
+  { id: 2, src: getImgSrc('/example/33.jpg') },
+]
+
 export const EXAMPLE_IMAGES: ExampleImgData[] = [
   {
     id: 0,
-    originalImgPath: getImgSrc('/example/1.jpg'),
-    compareImgPath: getImgSrc('/example/11.jpg'),
+    src: getImgSrc('/example/1.jpg'),
     cutImgPath: getImgSrc('/example/cut1.png'),
     preprocessedImgPath: getImgSrc('/example/pre1.png'),
     correctImgPath: getImgSrc('/example/correct1.png'),
@@ -44,8 +51,7 @@ export const EXAMPLE_IMAGES: ExampleImgData[] = [
   },
   {
     id: 1,
-    originalImgPath: getImgSrc('/example/2.jpg'),
-    compareImgPath: getImgSrc('/example/22.jpg'),
+    src: getImgSrc('/example/2.jpg'),
     cutImgPath: getImgSrc('/example/cut2.png'),
     preprocessedImgPath: getImgSrc('/example/pre2.png'),
     correctImgPath: getImgSrc('/example/correct2.png'),
@@ -59,8 +65,7 @@ export const EXAMPLE_IMAGES: ExampleImgData[] = [
   },
   {
     id: 2,
-    originalImgPath: getImgSrc('/example/3.jpg'),
-    compareImgPath: getImgSrc('/example/33.jpg'),
+    src: getImgSrc('/example/3.jpg'),
     cutImgPath: getImgSrc('/example/cut3.png'),
     preprocessedImgPath: getImgSrc('/example/pre3.png'),
     correctImgPath: getImgSrc('/example/correct3.png'),
