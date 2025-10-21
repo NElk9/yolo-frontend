@@ -41,12 +41,12 @@ export default function DescriptionCard({ itemId }: { itemId: DescriptionKey }) 
   return (
     <div
       className={
-        'h-full flex flex-col justify-center gap-3 p-7 bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/30 rounded-3xl'
+        'h-full flex flex-col justify-center gap-3 p-7 bg-gradient-to-br from-[#DDDEFF] to-[#9ACEFF]/30 rounded-3xl overflow-auto'
       }
     >
       <div className={'flex items-center gap-2'}>
         {item?.icon}
-        <p className={'text-2xl text-[#7760FF] font-semibold'}>{item?.title}</p>
+        <p className={'text-xl text-[#7760FF] font-semibold'}>{item?.title}</p>
       </div>
       <p className={'text-[#101010] text-xl'}>{item?.content}</p>
     </div>

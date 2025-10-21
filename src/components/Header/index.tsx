@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useIsScroll from '@/hooks/use-is-scroll'
-import {cn, getImgSrc} from '@/lib/utils'
-import Image from "next/image";
+import { cn, getImgSrc } from '@/lib/utils'
 
 type MenuData = {
   name: string
@@ -72,8 +72,9 @@ export default function Header() {
       )}
     >
       <div className={'w-full h-full flex items-center px-20 gap-[200px]'}>
-        <Link href="/" className={'flex-shrink-0'}>
-          <Image src={getImgSrc("/logo.png")} height={100} width={100} alt="Logo" />
+        <Link href="/" className={'flex-shrink-0 flex items-center gap-4'}>
+          <Image src={getImgSrc('/logo.png')} height={100} width={100} alt="Logo" />
+          <Image src={getImgSrc('/bank-logo.png')} height={100} width={180} alt="Logo" />
         </Link>
         <div className={'flex items-center justify-between min-w-[450px]'}>
           {menuData.map((menu, index) => {

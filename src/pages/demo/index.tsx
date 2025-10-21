@@ -3,7 +3,7 @@ import DescriptionCard from '@/components/DescriptionCard'
 import ImgPanel, { ImgPanelType } from '@/components/ImgPanel'
 import TabsPanel from '@/components/TabsPanel'
 import UploadPanel from '@/components/UploadPanel'
-import {getImgSrc} from "@/lib/utils";
+import { getImgSrc } from '@/lib/utils'
 
 export default function index() {
   return (
