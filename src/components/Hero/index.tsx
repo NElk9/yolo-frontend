@@ -5,7 +5,7 @@ import { getImgSrc } from '@/lib/utils'
 
 export default function Hero() {
   return (
-    <div id={'hero'} className={'w-full h-screen relative flex items-center bg-[#E2E3E3] -z-20'}>
+    <div id={'hero'} className={'w-full h-screen relative flex items-center'}>
       <Image
         src={getImgSrc('/bg.png')}
         height={100}
