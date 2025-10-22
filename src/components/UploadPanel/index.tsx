@@ -90,7 +90,6 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   }
   // 进行步骤1和2
   const startPredict = async (uploadFile: File) => {
-    setStage(ProcessStage.AUTHENTIC)
     const data = await predict(uploadFile)
     if (data.status === 'success') {
       // 提取真伪输出结果和概率 输出样例  分类结果：true_sea（置信度：95.93%)
@@ -113,7 +112,6 @@ export default function UploadPanel({ type }: { type: UploadType }) {
     }
   }
   const startCompare = async (uploadFile: File) => {
-    setStage(ProcessStage.COMPARE)
     const formData = new FormData()
     formData.append('image', uploadFile)
     if (sessionId) formData.append('session_id', sessionId)
@@ -140,6 +138,10 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       return
     }
     setLoading(true)
+    setStage(type === 'original' ? ProcessStage.AUTHENTIC : ProcessStage.COMPARE)
+    // 模拟耗时 2~3 秒
+    const delay = 2000 + Math.random() * 1000
+    await new Promise((resolve) => setTimeout(resolve, delay))
     try {
       if (file) {
         // ✅ 情况1：用户上传图片（真实调用接口）
@@ -150,12 +152,6 @@ export default function UploadPanel({ type }: { type: UploadType }) {
         await startFunc(uploadFile)
       } else if (example && exampleId !== null) {
         // ✅ 情况2：示例图片（假装处理，2-3秒后展示固定结果）
-        setStage(type === 'original' ? ProcessStage.AUTHENTIC : ProcessStage.COMPARE)
-
-        // 模拟耗时 2~3 秒
-        const delay = 2000 + Math.random() * 1000
-        await new Promise((resolve) => setTimeout(resolve, delay))
-
         // 从示例配置中取演示结果（或写死）
         if (type === 'original') {
           const e = example as ExampleImgData
@@ -179,6 +175,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       }
     } catch (e) {
       toast.error('未检测到印章')
+      console.error(e)
     } finally {
       setLoading(false)
       setStage(ProcessStage.DONE)
