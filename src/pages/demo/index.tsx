@@ -10,7 +10,7 @@ export default function index() {
     <div
       id={'use'}
       className={
-        'w-full xl:h-screen overflow-auto pt-15 pb-8 px-20 bg-[#f5f8ff] flex flex-col xl:flex-row gap-8'
+        'w-full xl:h-screen overflow-auto pt-15 pb-8 px-6 xl:px-20 bg-[#f5f8ff] flex flex-col xl:flex-row gap-8'
       }
     >
       <div

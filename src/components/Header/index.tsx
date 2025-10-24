@@ -73,10 +73,10 @@ export default function Header() {
         isScroll && 'bg-[#f5f8ff]/70 backdrop-blur-lg',
       )}
     >
-      <div className={'w-full h-full flex items-center justify-between px-18 xl:gap-[200px]'}>
+      <div className={'w-full h-full flex items-center justify-between px-4 xl:px-18 xl:gap-[200px]'}>
         <Link href="/" className={'flex-shrink-0 flex items-center gap-4'}>
-          <Image src={getImgSrc('/logo.png')} height={100} width={100} alt="Logo" />
-          <Image src={getImgSrc('/bank-logo.png')} height={100} width={180} alt="Logo" />
+          <Image src={getImgSrc('/logo.png')} height={90} width={90} alt="Logo" />
+          <Image src={getImgSrc('/bank-logo.png')} height={90} width={150} alt="Logo" />
         </Link>
         <div
           className={'flex items-center justify-start gap-24 min-w-[450px] flex-1 max-xl:hidden'}
