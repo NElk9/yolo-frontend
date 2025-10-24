@@ -1,5 +1,5 @@
-import Image from "next/image";
-import {getImgSrc} from "@/lib/utils";
+import Image from 'next/image'
+import { getImgSrc } from '@/lib/utils'
 
 type CardData = {
   imgPath: string
@@ -8,7 +8,11 @@ type CardData = {
 }
 
 const cards: CardData[] = [
-  { imgPath: getImgSrc('/intro/card1.png'), title: '印章裁剪', description: '对图片中的印章进行定位裁剪' },
+  {
+    imgPath: getImgSrc('/intro/card1.png'),
+    title: '印章裁剪',
+    description: '对图片中的印章进行定位裁剪',
+  },
   {
     imgPath: getImgSrc('/intro/card2.png'),
     title: '真伪鉴别',
@@ -25,13 +29,15 @@ export default function Intro() {
   return (
     <div
       id={'intro'}
-      className={'w-full h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8'}
+      className={
+        'w-full xl:h-screen flex flex-col justify-center items-center bg-[#f5f8ff] gap-8 py-16'
+      }
     >
       <Image alt={''} src={getImgSrc('/intro.png')} width={450} height={450} />
-      <p className={'text-2xl text-[#818283] pb-10'}>
+      <p className={'text-2xl text-[#818283] pb-10 px-10'}>
         我们设计了一个网页，可以帮助您进行印章裁剪、真伪鉴别及印章匹配一系列操作。
       </p>
-      <div className={'flex justify-center items-center w-full gap-[80px]'}>
+      <div className={'flex flex-col xl:flex-row justify-center items-center w-full gap-[80px]'}>
         {cards.map((card: CardData, index) => (
           <IntroCard key={index} cardData={card} />
         ))}

@@ -7,8 +7,15 @@ import { getImgSrc } from '@/lib/utils'
 
 export default function index() {
   return (
-    <div id={'use'} className={'w-full h-screen pt-15 pb-8 px-20 bg-[#f5f8ff] flex gap-8'}>
-      <div className={'w-5/12 h-full flex flex-col justify-start items-center gap-5 overflow-auto'}>
+    <div
+      id={'use'}
+      className={
+        'w-full xl:h-screen overflow-auto pt-15 pb-8 px-20 bg-[#f5f8ff] flex flex-col xl:flex-row gap-8'
+      }
+    >
+      <div
+        className={'xl:w-5/12 h-full flex flex-col justify-start items-center gap-5 overflow-auto'}
+      >
         <div className={'w-full h-1/2'}>
           <UploadPanel type={'original'} />
         </div>
@@ -16,16 +23,16 @@ export default function index() {
           <Image alt={''} src={getImgSrc('/use/text-cut.png')} width={100} height={100} />
           <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
-        <div className={'flex gap-3 w-full h-full'}>
-          <div className={'w-1/2'}>
+        <div className={'flex flex-col xl:flex-row gap-3 w-full h-full'}>
+          <div className={'xl:w-1/2'}>
             <DescriptionCard itemId={'cut'} />
           </div>
-          <div className={'w-1/2'}>
+          <div className={'xl:w-1/2'}>
             <ImgPanel type={ImgPanelType.CUT} />
           </div>
         </div>
       </div>
-      <div className={'w-7/12 h-full'}>
+      <div className={'xl:w-7/12 h-full'}>
         <TabsPanel />
       </div>
     </div>

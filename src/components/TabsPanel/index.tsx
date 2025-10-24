@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import CompareIcon from '@/assets/demo/compare.svg'
 import StampIcon from '@/assets/demo/stamp.svg'
 import DescriptionCard from '@/components/DescriptionCard'
@@ -5,8 +6,7 @@ import ImgPanel, { ImgPanelType } from '@/components/ImgPanel'
 import ResultPanel, { ResultPanelType } from '@/components/ResultPanel'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import UploadPanel from '@/components/UploadPanel'
-import Image from "next/image";
-import {getImgSrc} from "@/lib/utils";
+import { getImgSrc } from '@/lib/utils'
 
 type TabData = {
   icon: React.ReactNode
@@ -55,17 +55,19 @@ export default function TabsPanel() {
           <Image alt={''} src={getImgSrc('/use/text-res.png')} width={100} height={100} />
           <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
-        <div className={'flex items-center justify-between gap-4 w-full flex-1'}>
+        <div
+          className={'flex xl:flex-row flex-col items-center justify-between gap-4 w-full flex-1'}
+        >
           <ImgPanel type={ImgPanelType.PREPROCESS} />
           <ResultPanel type={ResultPanelType.AUTHENTICITY} />
         </div>
       </TabsContent>
       <TabsContent value={'compare'} className={'flex-1 flex flex-col gap-4 w-full'}>
-        <div className={'flex gap-3 w-full h-[340px]'}>
-          <div className={'w-4/10'}>
+        <div className={'flex xl:flex-row flex-col gap-3 w-full'}>
+          <div className={'xl:w-4/10'}>
             <DescriptionCard itemId="compare" />
           </div>
-          <div className={'w-6/10'}>
+          <div className={'xl:w-6/10'}>
             <UploadPanel type={'compare'} />
           </div>
         </div>
@@ -73,7 +75,9 @@ export default function TabsPanel() {
           <Image alt={''} src={getImgSrc('/use/text-res-compare.png')} width={100} height={100} />
           <div className={'bg-[#e5e5e5] h-[2px] w-full'} />
         </div>
-        <div className={'flex items-center justify-between gap-4 w-full flex-1'}>
+        <div
+          className={'flex xl:flex-row flex-col items-center justify-between gap-4 w-full flex-1'}
+        >
           <ImgPanel type={ImgPanelType.GEO} />
           <ResultPanel type={ResultPanelType.COMPARE} />
         </div>

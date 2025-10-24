@@ -43,10 +43,18 @@ export default function ImgPanel({ type }: { type: ImgPanelType }) {
     (type === ImgPanelType.CUT || type === ImgPanelType.PREPROCESS)
   const compareLoading = stage === ProcessStage.COMPARE && type === ImgPanelType.GEO
   return (
-    <Card className={'w-full h-full bg-white'}>
-      <CardContent className={'h-full flex py-3 px-6 flex-col justify-center items-center gap-5'}>
+    <Card className={'w-full bg-white h-full'}>
+      <CardContent
+        className={
+          'max-xl:min-h-[400px] h-full flex py-3 px-6 flex-col justify-center items-center gap-5'
+        }
+      >
         <div className={'text-[#6E56FF] text-xl font-semibold'}>{type}</div>
-        <div className={'h-full w-full bg-gray-200 rounded-2xl flex justify-center items-center'}>
+        <div
+          className={
+            'h-full w-full flex-1 bg-gray-200 rounded-2xl flex justify-center items-center'
+          }
+        >
           {imgSrc ? (
             <Image src={imgSrc} className={'w-full h-full object-cover object-center'} />
           ) : authenticLoading || compareLoading ? (
