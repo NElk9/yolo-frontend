@@ -35,5 +35,6 @@ export function extractPercentage(result: string): string {
 
 export function getImgSrc(src: string): string {
   const isProd = process.env.NODE_ENV === 'production'
-  return isProd ? '/yolo-frontend' + src : src
+  // return isProd ? '/yolo-frontend' + src : src
+  return src
 }

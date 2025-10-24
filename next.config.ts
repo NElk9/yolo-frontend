@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
     unoptimized: true, // 如果你用到了 next/image，这一项必须加
   },
   // assetPrefix: './',
-  basePath: isProd ? '/yolo-frontend' : '',
-  assetPrefix: isProd ? '/yolo-frontend/' : '',
+  // basePath: isProd ? '/yolo-frontend' : '',
+  // assetPrefix: isProd ? '/yolo-frontend/' : '',
   // trailingSlash: true,
   reactStrictMode: true,
   eslint: {
