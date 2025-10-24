@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { SidebarIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import useIsScroll from '@/hooks/use-is-scroll'
 import { cn, getImgSrc } from '@/lib/utils'
 
@@ -71,12 +73,14 @@ export default function Header() {
         isScroll && 'bg-[#f5f8ff]/70 backdrop-blur-lg',
       )}
     >
-      <div className={'w-full h-full flex items-center px-20 gap-[200px]'}>
+      <div className={'w-full h-full flex items-center justify-between px-18 xl:gap-[200px]'}>
         <Link href="/" className={'flex-shrink-0 flex items-center gap-4'}>
           <Image src={getImgSrc('/logo.png')} height={100} width={100} alt="Logo" />
           <Image src={getImgSrc('/bank-logo.png')} height={100} width={180} alt="Logo" />
         </Link>
-        <div className={'flex items-center justify-between min-w-[450px]'}>
+        <div
+          className={'flex items-center justify-start gap-24 min-w-[450px] flex-1 max-xl:hidden'}
+        >
           {menuData.map((menu, index) => {
             const isActive = activeMenuId === menu.id
             return (
@@ -90,6 +94,28 @@ export default function Header() {
             )
           })}
         </div>
+        <Sheet>
+          <SheetTrigger className={'xl:hidden h-8 w-8'}>
+            <SidebarIcon />
+          </SheetTrigger>
+          <SheetContent
+            className={'flex flex-col items-start justify-start gap-6 bg-[#DDDEFF]'}
+            onOpenAutoFocus={(e) => e.preventDefault()}
+          >
+            {menuData.map((menu, index) => {
+              const isActive = activeMenuId === menu.id
+              return (
+                <Link
+                  href={menu.href}
+                  key={index}
+                  className={cn('text-[#666666]', isActive && 'text-[#855AFF] font-semibold')}
+                >
+                  {menu.name}
+                </Link>
+              )
+            })}
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   )
