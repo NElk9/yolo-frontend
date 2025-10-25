@@ -8,7 +8,7 @@ export default function Hero() {
     <div
       id={'hero'}
       className={
-        'w-full h-screen flex items-center bg-cover bg-center max-sm:bg-right bg-[url("/bg.png")] max-sm:bg-[url("/bg-mobile.png")]'
+        'w-full h-screen max-sm:pt-18 px-4 flex items-center max-sm:items-start bg-cover bg-center max-sm:bg-right bg-[url("/bg.png")] max-sm:bg-[url("/bg-mobile.png")]'
       }
     >
       {/*<Image*/}
@@ -21,15 +21,15 @@ export default function Hero() {
       {/*  }*/}
       {/*/>*/}
       <div className={'flex flex-col items-start justify-between pl-[280px] max-sm:pl-3'}>
-        <Image src={getImgSrc('/logo.png')} alt={'印鉴通'} width={380} height={350} />
-        <p className={'text-3xl max-sm:text-2xl font-semibold mt-[30px]'}>对印章进行裁剪等处理，</p>
-        <p className={'text-3xl max-sm:text-2xl font-semibold mt-[20px] mb-[60px]'}>
+        <Image src={getImgSrc('/logo.png')} alt={'印鉴通'} width={300} height={200} />
+        <p className={'text-3xl max-sm:text-xl font-semibold mt-6'}>对印章进行裁剪等处理，</p>
+        <p className={'text-3xl max-sm:text-xl font-semibold mt-4 mb-10'}>
           判断其真伪及与给定印章的一致性
         </p>
         <Link href="/demo">
           <Button
             className={
-              'h-[60px] text-4xl max-sm:text-3xl px-[80px] py-[40px] rounded-3xl bg-white/30 border-solid border-4 border-white/90 hover:bg-white/50 active:bg-[#e7ecee]/60'
+              'h-24 px-10 max-sm:h-14 text-4xl max-sm:text-2xl rounded-3xl sm:bg-white/30 sm:border-solid sm:border-4 sm:border-white/90 sm:hover:bg-white/50 sm:active:bg-[#e7ecee]/60'
             }
           >
             立即使用

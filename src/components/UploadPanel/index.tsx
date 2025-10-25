@@ -108,7 +108,7 @@ export default function UploadPanel({ type }: { type: UploadType }) {
       })
     } else {
       toast('未检测到印章')
-      console.error(data.error)
+      // console.error(data.error)
     }
   }
   const startCompare = async (uploadFile: File) => {
@@ -183,11 +183,13 @@ export default function UploadPanel({ type }: { type: UploadType }) {
   }
   return (
     <Card className={'w-full h-full bg-white'}>
-      <CardContent className={'h-full flex justify-between items-center gap-6'}>
-        <div className={'w-5/6 self-stretch flex flex-col justify-between gap-5'}>
+      <CardContent
+        className={'h-full flex max-sm:flex-col-reverse justify-between items-center gap-6'}
+      >
+        <div className={'sm:w-4/5 self-stretch flex flex-col justify-between gap-5'}>
           <div
             className={
-              'w-full h-9/10 overflow-hidden rounded-2xl bg-gray-200 flex justify-center items-center'
+              'w-full h-9/10 min-h-[280px] overflow-hidden rounded-2xl bg-gray-200 flex justify-center items-center'
             }
           >
             {previewURL ? (
@@ -205,10 +207,14 @@ export default function UploadPanel({ type }: { type: UploadType }) {
             </Button>
           </div>
         </div>
-        <div className={'w-1/6 self-stretch flex flex-col gap-4 justify-between items-center'}>
-          <div className={'font-semibold'}>示例图片</div>
+        <div
+          className={
+            'sm:w-1/5 self-stretch flex max-sm:flex-row flex-col gap-4 justify-between items-center'
+          }
+        >
+          <div className={'font-semibold text-nowrap'}>示例图</div>
           <ScrollArea className={'w-full h-full'}>
-            <div className={'flex flex-col gap-4'}>
+            <div className={'flex flex-col max-sm:flex-row gap-4'}>
               {exampleImgs.map((image, index) => (
                 <div
                   key={index}
